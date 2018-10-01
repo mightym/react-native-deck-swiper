@@ -692,7 +692,7 @@ class Swiper extends Component {
   pushCardToStack = (renderedCards, index, key, firstCard) => {
     const { cards } = this.props
     const stackCardZoomStyle = this.calculateStackCardZoomStyle(index)
-    const stackCard = this.props.renderCard(cards[index], index)
+    const stackCard = this.props.renderCard(cards[index], index, firstCard)
     const swipableCardStyle = this.calculateSwipableCardStyle()
     const renderOverlayLabel = this.renderOverlayLabel()
 
