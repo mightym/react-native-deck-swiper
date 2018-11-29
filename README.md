@@ -19,10 +19,10 @@ npm install react-native-deck-swiper --save
 * [x] Swipe event callbacks
 * [x] Trigger swipe animations programmatically
 * [x] Jump to a card index
-* [x] Swipe to the previous card
+* [x] Swipe to previous card
 * [x] Underlaying cards offset
 * [x] Never-ending, animated deck when infinite property is true
-* [ ] Swipe back to the previous card with a custom animation
+* [x] Swipe back to previous card with a custom animation
 
 ## Preview
 
@@ -57,6 +57,8 @@ npm install react-native-deck-swiper --save
 | onSwipedTop       | func   | function to be called when a card is swiped top. it receives the swiped card index    |         | (cardIndex) => {} |
 | onSwipedBottom    | func   | function to be called when a card is swiped bottom. it receives the swiped card index |         | (cardIndex) => {} |
 | onSwiping         | func   | function to be called when a card is being moved. it receives X and Y positions       |         | (x, y) => {} |
+| dragStart         | func   | function to be called when drag start                                       |        |
+| dragEnd           | func   | function to be called when drag end
 | onTapCard         | func   | function to be called when tapping a card. it receives the tapped card index          |         | (cardIndex) => {} |
 | onTapCardDeadZone | number | maximum amount of movement before a tap is no longer recognized as a tap              | 5       |
 
@@ -241,19 +243,37 @@ Make sure you set showSecondCard={false} for smoother and proper transitions whi
 | cardHorizontalMargin | number | card horizontal margin                             | 20        |
 | childrenOnTop        | bool   | render children on top or not                      | false     |
 | cardStyle            | node   | override swipable card style                       | {}        |
-| containerStyle            | node   |  overrides for the containing <View> style                       | {}        |
+| containerStyle       | node   | overrides for the containing <View> style          | {}        |
+| pointerEvents        | string | pointerEvents prop for the containing <View>       | 'auto'    |
+
+### Swipe back method info
+## Method
+
+| Name                | type   | description                                        |
+| :------------------- | :----- | :------------------------------------------------- |
+| swipeBack       | callback                       | swipe back into deck last swiped card |
+
+## Props
+
+| Props                | type   | description                                        | default   |
+| :------------------- | :----- | :------------------------------------------------- | :-------- |
+| previousCardDefaultPositionX | number | Animation start position oX when card swipes back into deck | -width |
+| previousCardDefaultPositionY | number | Animation start position oY when card swipes back into deck | -height |
+| stackAnimationFriction | number | spring animation friction (bounciness)                 | 7       |
+| stackAnimationTension  | number | spring animation tension (speed)                       | 40      |
+| stackAnimationTension  | number | spring animation tension (speed)                       | 40      |
+| swipeBackCard  | bool | renders swipe back card, in order to animate it                       | false      |
 
 ### Methods
 
 To trigger imperative animations, you can use a reference to the Swiper component.
 
-| Props           | arguments                      | description                   |
+| Name           | arguments                      | description                   |
 | :-------------- | :----------------------------- | :---------------------------- |
 | swipeLeft       | mustDecrementCardIndex = false | swipe left to the next card   |
 | swipeRight      | mustDecrementCardIndex = false | swipe right to the next card  |
 | swipeTop        | mustDecrementCardIndex = false | swipe top to the next card    |
 | swipeBottom     | mustDecrementCardIndex = false | swipe bottom to the next card |
-| swipeBack       | callback                       | swipe back into deck last swiped card |
 | jumpToCardIndex | cardIndex                      | set the current card index    |
 
 ## Usage example

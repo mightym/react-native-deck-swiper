@@ -3,13 +3,12 @@ import Swiper from 'react-native-deck-swiper'
 import { Button, StyleSheet, Text, View } from 'react-native'
 
 export default class Exemple extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       cards: ['1', '2', '3'],
       swipedAllCards: false,
       swipeDirection: '',
-      isSwipingBack: false,
       cardIndex: 0
     }
   }
@@ -22,43 +21,32 @@ export default class Exemple extends Component {
     )
   };
 
+  onSwiped = (type) => {
+    console.log(`on swiped ${type}`)
+  }
+
   onSwipedAllCards = () => {
     this.setState({
       swipedAllCards: true
     })
   };
 
-  swipeBack = () => {
-    if (!this.state.isSwipingBack) {
-      this.setIsSwipingBack(true, () => {
-        this.swiper.swipeBack(() => {
-          this.setIsSwipingBack(false)
-        })
-      })
-    }
-  };
-
-  setIsSwipingBack = (isSwipingBack, cb) => {
-    this.setState(
-      {
-        isSwipingBack: isSwipingBack
-      },
-      cb
-    )
-  };
-
   swipeLeft = () => {
     this.swiper.swipeLeft()
   };
 
-  render() {
+  render () {
     return (
       <View style={styles.container}>
         <Swiper
           ref={swiper => {
             this.swiper = swiper
           }}
-          onSwiped={this.onSwiped}
+          onSwiped={() => this.onSwiped('general')}
+          onSwipedLeft={() => this.onSwiped('left')}
+          onSwipedRight={() => this.onSwiped('right')}
+          onSwipedTop={() => this.onSwiped('top')}
+          onSwipedBottom={() => this.onSwiped('bottom')}
           onTapCard={this.swipeLeft}
           cards={this.state.cards}
           cardIndex={this.state.cardIndex}
@@ -139,8 +127,9 @@ export default class Exemple extends Component {
           }}
           animateOverlayLabelsOpacity
           animateCardOpacity
+          swipeBackCard
         >
-          <Button onPress={this.swipeLeft} title='Swipe Left' />
+          <Button onPress={() => this.swiper.swipeBack()} title='Swipe Back' />
         </Swiper>
       </View>
     )
