@@ -36,14 +36,6 @@ const rebuildStackAnimatedValues = (props) => {
 }
 
 class Swiper extends Component {
-  static getDerivedStateFromProps (props, state) {
-    return {
-      ...state,
-      ...calculateCardIndexes(props.cardIndex, props.cards),
-      cards: props.cards,
-    }
-  }
-
   constructor (props) {
     super(props)
 
